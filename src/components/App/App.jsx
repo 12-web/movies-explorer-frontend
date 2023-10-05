@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { Login } from "../../pages/Login/Login";
 import { Main } from "../../pages/Main/Main";
 import { Movies } from "../../pages/Movies/Movies";
@@ -11,14 +11,28 @@ import "../../vendor/normalize.css";
 import "../../vendor/fonts/fonts.css";
 import { Header } from "../sections/Header/Header";
 import { Footer } from "../sections/Footer/Footer";
-import { data } from "../../assets/data/data";
 import "../../variables/variables.css";
 import "./App.css";
 
 const App = () => {
+  const location = useLocation();
+  const [isMenuOpened, setIsMenuOpened] = useState(false);
+
+  const listOfHeaderDisplayed = ["/", "/profile", "/movies", "/saved-movies"];
+  const listOfFooterDisplayed = ["/", "/movies", "/saved-movies"];
+  const isHeaderDisplayed = listOfHeaderDisplayed.includes(location.pathname);
+  const isFooterDisplayed = listOfFooterDisplayed.includes(location.pathname);
+
   return (
-    <div className="root">
-      <Header data={data.header} />
+    <div className={`root ${isMenuOpened ? "root_blocked" : ""}`}>
+      {isHeaderDisplayed ? (
+        <Header
+          isMenuOpened={isMenuOpened}
+          onChangeMenuOpenness={setIsMenuOpened}
+        />
+      ) : (
+        ""
+      )}
       <main className="content">
         <Routes>
           <Route path="/" element={<Main />} />
@@ -30,7 +44,7 @@ const App = () => {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </main>
-      <Footer data={data.footer} />
+      {isFooterDisplayed ? <Footer /> : ""}
     </div>
   );
 };

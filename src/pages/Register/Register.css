@@ -1,13 +1,16 @@
 .register {
+  flex-grow: 1;
+  display: flex;
+}
+.register__inner-container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
+  padding: 70px 0;
+  justify-content: center;
+  flex-grow: 1;
   max-width: 396px;
-  width: 100%;
-  margin: 70px auto 0;
+  margin: 0 auto;
 }
-
 .register__logo {
   margin-bottom: 40px;
 }
@@ -25,11 +28,16 @@
 .register__link {
   color: var(--second-accent);
 }
+@media screen and (max-width: 1023px) {
+  .register__inner-container {
+    padding: 45px 30px 30px;
+  }
+}
 
 @media screen and (max-width: 600px) {
-  .register {
-    margin: 40px 30px 0;
+  .register__inner-container {
     align-items: center;
+    padding: 56px 30px 20px;
   }
 
   .register__logo {

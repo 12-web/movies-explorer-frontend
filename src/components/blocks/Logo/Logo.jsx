@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import logo from "../../../assets/images/logo.svg";
+import { data } from "../../../assets/data/data";
 import "./Logo.css";
 
 /**
@@ -10,7 +10,8 @@ import "./Logo.css";
  */
 
 export const Logo = ({ baseClass }) => {
-  return <img className={`logo ${baseClass}__logo`} src={logo} alt="" />;
+  const { src, alt } = data.logo;
+  return <img className={`logo ${baseClass}__logo`} alt={alt} src={src} />;
 };
 
 Logo.propTypes = {

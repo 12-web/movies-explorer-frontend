@@ -2,13 +2,14 @@ import logo from "../images/logo.svg";
 import photo from "../images/photo.png";
 import banner from "../images/movie_banner.png";
 import banner2 from "../images/movie_banner-2.png";
+import promo from "../images/promo-bg.webp";
 
 export const data = {
+  logo: {
+    src: logo,
+    alt: "Логотип",
+  },
   header: {
-    logo: {
-      src: logo,
-      alt: "Логотип",
-    },
     unauth: {
       register: {
         text: "Регистрация",
@@ -50,6 +51,10 @@ export const data = {
   },
   promo: {
     title: "Учебный проект студента факультета Веб-разработки.",
+    image: {
+      src: promo,
+      alt: "Оформление",
+    },
   },
   aboutProject: {
     title: "О проекте",
@@ -82,7 +87,7 @@ export const data = {
   aboutMe: {
     title: "Студент",
     name: "Виталий",
-    profession: "Фронтенд-разработкич, 30 лет",
+    profession: "Фронтенд-разработчик, 30 лет",
     photo: photo,
     about:
       "Я родился и живу в Саратове, закончил факультет экономики СГУ. У меня есть жена и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить. С 2015 года работал в компании «СКБ Контур». После того, как прошёл курс по веб-разработке, начал заниматься фриланс-заказами и ушёл с постоянной работы. ",
@@ -91,9 +96,18 @@ export const data = {
   portfolio: {
     title: "Портфолио",
     links: [
-      { name: "Статичный сайт", href: "/" },
-      { name: "Адаптивный сайт", href: "/" },
-      { name: "Одностраничное приложение", href: "/" },
+      {
+        name: "Статичный сайт",
+        href: "https://github.com/12-web/how-to-learn",
+      },
+      {
+        name: "Адаптивный сайт",
+        href: "https://github.com/12-web/russian-travel",
+      },
+      {
+        name: "Одностраничное приложение",
+        href: "https://github.com/12-web/react-mesto-auth",
+      },
     ],
   },
   movies: {
@@ -181,7 +195,7 @@ export const data = {
   },
   login: {
     title: "Рады видеть!",
-    submit: "Отправить",
+    submit: "Войти",
     link: {
       description: "Ещё не зарегистрированы?",
       href: "/signup",

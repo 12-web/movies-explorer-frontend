@@ -42,7 +42,10 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: 46%;
-  background-color: #0f4157;
+  background-color: var(--logo-bg-color);
+}
+.header__account-icon_loc_main {
+  background-color: var(--logo-main-bg-color);
 }
 
 @media screen and (max-width: 1023px) {

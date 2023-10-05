@@ -19,7 +19,10 @@
   --smoke: #2f2f2f;
   --gray: #8b8b8b;
   --main-bg-color: #202020;
+  --colonial-blue: #073042;
   --footer-bg-color: var(--main-bg-color);
+  --logo-bg-color: #313131;
+  --logo-main-bg-color: #0f4157;
   --border-light: #dadada;
   --border-dark: #424242;
   --card-bg-gray: #303030;

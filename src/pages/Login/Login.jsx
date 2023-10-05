@@ -23,7 +23,7 @@ export const Login = ({ isFormLoading, onLogin }) => {
   });
   const emailId = "email-signin";
   const passwordId = "password-signin";
-  const isWarning = true;
+  const isWarning = false;
   const { title, submit, link } = data.login;
 
   /** отправка формы при авторизации пользователя */
@@ -44,50 +44,56 @@ export const Login = ({ isFormLoading, onLogin }) => {
 
   return (
     <section className="login">
-      <Logo baseClass="login" />
-      <Title>{title}</Title>
-      <Form onSubmit={handleSubmit} name="signIn">
-        <fieldset className="form__inner-container">
-          <InputBlock
-            labelText="E-mail"
-            baseClass="login"
-            labelPos="top"
-            isValidated={true}
-            isBordered={true}
-            id={emailId}
-            type="email"
-            name="email"
-            value={userData.email}
-            onChange={handleChange}
-            required
-          />
-          <InputBlock
-            labelText="Пароль"
-            labelPos="top"
-            baseClass="login"
-            isValidated={true}
-            isBordered={true}
-            id={passwordId}
-            type="password"
-            name="password"
-            value={userData.password}
-            onChange={handleChange}
-            autoComplete="nope"
-            required
-          />
-        </fieldset>
-
-        {isWarning && (
-          <span className="form__error-response">Текст ошибки</span>
-        )}
-        <Submit submitText={submit} />
-      </Form>
-      <p className="text login__text">
-        {link.description}&nbsp;
-        <Link className="link login__link" to={link.href}>
-          {link.text}
-        </Link>
-      </p>
+      <div className="login__inner-container">
+        <Logo baseClass="login" />
+        <Title>{title}</Title>
+        <Form onSubmit={handleSubmit} name="signIn">
+          <fieldset className="form__inner-container">
+            <InputBlock
+              labelText="E-mail"
+              baseClass="login"
+              labelPos="top"
+              isValidated={true}
+              isBordered={true}
+              id={emailId}
+              type="email"
+              name="email"
+              value={userData.email}
+              onChange={handleChange}
+              required
+            />
+            <InputBlock
+              labelText="Пароль"
+              labelPos="top"
+              baseClass="login"
+              isValidated={true}
+              isBordered={true}
+              id={passwordId}
+              type="password"
+              name="password"
+              value={userData.password}
+              onChange={handleChange}
+              required
+            />
+          </fieldset>
+          <div className="form__handles-container">
+            <span
+              className={`form__error-response ${
+                isWarning ? "form__error-response_visible" : ""
+              }`}
+            >
+              Текст ошибки
+            </span>
+            <Submit submitText={submit} />
+          </div>
+        </Form>
+        <p className="text login__text">
+          {link.description}&nbsp;
+          <Link className="link login__link" to={link.href}>
+            {link.text}
+          </Link>
+        </p>
+      </div>
     </section>
   );
 };

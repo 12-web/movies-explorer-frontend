@@ -11,15 +11,21 @@ import { MenuBurger } from "../MenuBurger/MenuBurger";
  * @param { Object } props.data - объект с данными для меню авторизованного пользователя
  * @param { Object } props.data.account - данные для кнопки аккаунта (название, ссылка)
  * @param { Array } props.data.links - ссылки навигационного меню
+ * @param { boolean } props.isLocMain - главная страница или нет
+ * @param { boolean } props.isMenuOpened - cостояние открытия меню
+ * @param { function } props.onChangeMenuOpenness - функция открытия/закрытия меню-бургера
  */
 
-export const AuthNavbar = ({ data }) => {
-  const [isMenuOpened, setIsMenuOpened] = useState(false);
-
+export const AuthNavbar = ({
+  data,
+  isLocMain,
+  isMenuOpened,
+  onChangeMenuOpenness,
+}) => {
   const { account, links } = data;
 
-  const handleBurgerClick = () => setIsMenuOpened(!isMenuOpened);
-  const handleLinkClick = () => setIsMenuOpened(!isMenuOpened);
+  const handleBurgerClick = () => onChangeMenuOpenness(!isMenuOpened);
+  const handleLinkClick = () => onChangeMenuOpenness(!isMenuOpened);
 
   return (
     <nav className="header__nav header__nav_type_auth">
@@ -56,7 +62,11 @@ export const AuthNavbar = ({ data }) => {
             to={account.path}
           >
             {account.text}
-            <span className="header__account-icon"></span>
+            <span
+              className={`header__account-icon ${
+                isLocMain ? "header__account-icon_loc_main" : ""
+              }`}
+            ></span>
           </Link>
         </div>
       </div>
@@ -65,8 +75,11 @@ export const AuthNavbar = ({ data }) => {
 };
 
 AuthNavbar.propTypes = {
+  isLocMain: PropTypes.bool,
   data: PropTypes.shape({
     account: PropTypes.object,
     links: PropTypes.array,
   }),
+  isMenuOpened: PropTypes.bool,
+  onChangeMenuOpenness: PropTypes.func,
 };

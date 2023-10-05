@@ -1,11 +1,15 @@
 .login {
+  flex-grow: 1;
+  display: flex;
+}
+.login__inner-container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
+  padding: 70px 0;
+  justify-content: center;
+  flex-grow: 1;
   max-width: 396px;
-  width: 100%;
-  margin: 70px auto 0;
+  margin: 0 auto;
 }
 
 .login__logo {
@@ -25,10 +29,14 @@
 .login__link {
   color: var(--second-accent);
 }
-
+@media screen and (max-width: 1023px) {
+  .login__inner-container {
+    padding: 56px 30px 30px;
+  }
+}
 @media screen and (max-width: 600px) {
-  .login {
-    margin: 40px 30px 0;
+  .login__inner-container {
+    padding: 56px 30px 20px;
     align-items: center;
   }
 

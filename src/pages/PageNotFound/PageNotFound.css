@@ -1,12 +1,15 @@
 .not-found {
-  display: grid;
-  grid-template-rows: 1fr min-content;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   justify-content: center;
+  padding: 60px 0;
 }
 .not-found__inner-container {
   display: flex;
   flex-direction: column;
-  align-self: center;
+  justify-content: center;
+  margin-bottom: 184px;
 }
 .not-found__title {
   margin: 0;
@@ -39,6 +42,13 @@
 }
 
 @media screen and (max-width: 600px) {
+  .not-found {
+    padding: 30px 0;
+  }
+  .not-found__inner-container {
+    flex-grow: 1;
+    margin-bottom: 0px;
+  }
   .not-found__title {
     font-size: 80px;
   }

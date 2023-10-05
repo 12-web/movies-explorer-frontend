@@ -7,12 +7,12 @@ import { data } from "../../assets/data/data";
 
 export const Main = () => {
   return (
-    <div>
+    <>
       <Promo data={data.promo} />
       <AboutProject data={data.aboutProject} />
       <Techs data={data.techs} />
       <AboutMe data={data.aboutMe} />
       <Portfolio data={data.portfolio} />
-    </div>
+    </>
   );
 };

@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { data } from "../../../assets/data/data";
 import "./Footer.css";
 
-export const Footer = ({ data }) => {
-  const { title, links } = data;
+export const Footer = () => {
+  const { title, links } = data.footer;
   const [currentYear] = useState(new Date().getFullYear());
 
   return (

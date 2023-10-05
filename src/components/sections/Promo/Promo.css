@@ -1,8 +1,6 @@
 .promo {
-  background-color: #073042;
+  background-color: var(--colonial-blue);
   padding: 50px var(--offside-xl) 60px;
-  display: flex;
-  box-sizing: border-box;
 }
 
 @media screen and (max-width: 1023px) {

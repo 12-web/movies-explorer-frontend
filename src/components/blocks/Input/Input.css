@@ -18,13 +18,13 @@
 .input_type_validated {
   font-size: 14px;
   line-height: 1.21;
-  padding: 10px 0;
+  padding: 7px 0;
 }
 .input_type_default {
   text-align: right;
   font-size: 11px;
   line-height: normal;
-  padding: 16px 0;
+  padding: 13px 0;
 }
 .input_is-warning {
   color: var(--warning);

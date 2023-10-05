@@ -32,7 +32,7 @@ export const InputBlock = ({
         {labelText}
       </label>
       <Input isValidated={isValidated} id={id} {...props} />
-      {isValidated && <span className={`input__error ${id}-error`}></span>}
+      {isValidated && <span className={`input__error ${id}-error`}>asds</span>}
     </div>
   );
 };

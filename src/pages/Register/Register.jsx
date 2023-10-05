@@ -46,67 +46,73 @@ export const Register = ({ isFormLoading, onRegister }) => {
 
   return (
     <section className="register">
-      <Logo baseClass="register" />
-      <Title>{title}</Title>
-      <Form
-        onSubmit={handleSubmit}
-        name="signIn"
-        submitText={isFormLoading ? "Секундочку..." : "Войти"}
-      >
-        <fieldset className="form__inner-container">
-          <InputBlock
-            labelText="Имя"
-            baseClass="register"
-            labelPos="top"
-            isValidated={true}
-            isBordered={true}
-            id={nameId}
-            type="text"
-            name="name"
-            value={userData.name}
-            onChange={handleChange}
-            required
-          />
-          <InputBlock
-            labelText="E-mail"
-            baseClass="register"
-            labelPos="top"
-            isValidated={true}
-            isBordered={true}
-            id={emailId}
-            type="email"
-            name="email"
-            value={userData.email}
-            onChange={handleChange}
-            required
-          />
-          <InputBlock
-            labelText="Пароль"
-            labelPos="top"
-            baseClass="register"
-            isValidated={true}
-            isBordered={true}
-            id={passwordId}
-            type="password"
-            name="password"
-            value={userData.password}
-            onChange={handleChange}
-            autoComplete="nope"
-            required
-          />
-        </fieldset>
-        {isWarning && (
-          <span className="form__error-response">Текст ошибки</span>
-        )}
-
-        <Submit submitText={submit} />
-      </Form>
-      <p className="text login__text">
-        {link.description}&nbsp;
-        <Link className="link login__link" to={link.href}>
-          {link.text}
-        </Link>
-      </p>
+      <div className="register__inner-container">
+        <Logo baseClass="register" />
+        <Title>{title}</Title>
+        <Form
+          onSubmit={handleSubmit}
+          name="signIn"
+          submitText={isFormLoading ? "Секундочку..." : "Войти"}
+        >
+          <fieldset className="form__inner-container">
+            <InputBlock
+              labelText="Имя"
+              baseClass="register"
+              labelPos="top"
+              isValidated={true}
+              isBordered={true}
+              id={nameId}
+              type="text"
+              name="name"
+              value={userData.name}
+              onChange={handleChange}
+              required
+            />
+            <InputBlock
+              labelText="E-mail"
+              baseClass="register"
+              labelPos="top"
+              isValidated={true}
+              isBordered={true}
+              id={emailId}
+              type="email"
+              name="email"
+              value={userData.email}
+              onChange={handleChange}
+              required
+            />
+            <InputBlock
+              labelText="Пароль"
+              labelPos="top"
+              baseClass="register"
+              isValidated={true}
+              isBordered={true}
+              id={passwordId}
+              type="password"
+              name="password"
+              value={userData.password}
+              onChange={handleChange}
+              required
+            />
+          </fieldset>
+          <div className="form__handles-container">
+            <span
+              className={`form__error-response ${
+                isWarning ? "form__error-response_visible" : ""
+              }`}
+            >
+              Текст ошибки
+            </span>
+            <Submit submitText={submit} />
+          </div>
+        </Form>
+        <p className="text login__text">
+          {link.description}&nbsp;
+          <Link className="link login__link" to={link.href}>
+            {link.text}
+          </Link>
+        </p>
+      </div>
     </section>
   );
 };
