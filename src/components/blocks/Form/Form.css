@@ -1,0 +1,26 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.form__inner-container {
+  padding: 0;
+  margin-bottom: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: none;
+}
+
+.form__error-response {
+  display: inline-block;
+  color: var(--warning);
+  text-align: center;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0 0 20px;
+}

@@ -1,0 +1,22 @@
+.burger {
+  display: none;
+  width: 44px;
+  height: 44px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  background: center / contain no-repeat
+    url("../../../assets/images/menu-burger-icon.svg");
+  z-index: 10;
+}
+
+.burger_opened {
+  background: center / contain no-repeat
+    url("../../../assets/images/close-icon.svg");
+}
+
+@media screen and (max-width: 1023px) {
+  .burger {
+    display: block;
+  }
+}

@@ -1,0 +1,5 @@
+@media screen and (max-width: 600px) {
+  .header__nav_type_unauth {
+    gap: 20px;
+  }
+}

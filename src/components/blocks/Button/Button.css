@@ -1,0 +1,10 @@
+.button {
+  border: none;
+  cursor: pointer;
+  transition: opacity var(--base-transition);
+  text-decoration: none;
+}
+
+.button:hover {
+  opacity: var(--btn-hover-opacity);
+}

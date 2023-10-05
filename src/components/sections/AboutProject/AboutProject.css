@@ -1,0 +1,17 @@
+.about-project {
+  max-width: var(--width-xl);
+  margin: 0 auto;
+  padding: var(--block-space-xl);
+}
+
+@media screen and (max-width: 1023px) {
+  .about-project {
+    padding: var(--block-space-md);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .about-project {
+    padding: var(--block-space-s);
+  }
+}

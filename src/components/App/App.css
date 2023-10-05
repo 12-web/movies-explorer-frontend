@@ -1,0 +1,27 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--main-bg-color);
+}
+.content {
+  flex-grow: 1;
+  display: grid;
+  width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+}
+
+.link {
+  text-decoration: none;
+  transition: opacity var(--base-transition);
+}
+
+.link:hover {
+  opacity: var(--link-hover-opacity);
+}
+.button_col_green {
+  background-color: var(--main-accent);
+}

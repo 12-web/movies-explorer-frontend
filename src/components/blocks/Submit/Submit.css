@@ -1,0 +1,25 @@
+.submit {
+  padding: 14px 5px;
+  margin: 0 0 0;
+  width: 100%;
+  border: none;
+  border-radius: 3px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: normal;
+  cursor: pointer;
+  color: var(--white);
+  background-color: var(--second-accent);
+  transition: opacity var(--base-transition);
+}
+
+.submit:hover {
+  opacity: var(--btn-hover-opacity);
+}
+
+@media screen and (max-width: 600px) {
+  .submit {
+    font-size: 12px;
+  }
+}
