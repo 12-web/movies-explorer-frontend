@@ -1,0 +1,18 @@
+.movies {
+  max-width: var(--width-xl);
+  margin: 0 auto;
+  padding: var(--block-space-xl);
+  display: grid;
+}
+
+@media screen and (max-width: 1023px) {
+  .movies {
+    padding: var(--block-space-md);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .movies {
+    padding: var(--block-space-s);
+  }
+}

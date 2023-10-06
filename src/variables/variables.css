@@ -1,0 +1,35 @@
+:root {
+  /*  ----------   spacings   ------------  */
+  --offside-xl: 70px;
+  --offside-md: 50px;
+  --offside-s: 14px;
+  --pd-xl: 110px;
+  --pd-md: 90px;
+  --pd-xs: 70px;
+  --block-space-xl: var(--pd-xl) var(--offside-xl);
+  --block-space-md: var(--pd-md) var(--offside-md);
+  --block-space-s: var(--pd-xs) var(--offside-s);
+  /*  ----------   general   ------------  */
+  --width-xl: 1140px;
+  --max-width-s: 600px;
+  /*  ----------   colors   ------------  */
+  --white: #fff;
+  --black: #222;
+  --dark: #272727;
+  --smoke: #2f2f2f;
+  --gray: #8b8b8b;
+  --main-bg-color: #202020;
+  --colonial-blue: #073042;
+  --footer-bg-color: var(--main-bg-color);
+  --logo-bg-color: #313131;
+  --logo-main-bg-color: #0f4157;
+  --border-light: #dadada;
+  --border-dark: #424242;
+  --card-bg-gray: #303030;
+  --main-accent: #3ddc84;
+  --second-accent: #4285f4;
+  --warning: #ee3465;
+  --base-transition: 0.4s ease-out;
+  --link-hover-opacity: 0.7;
+  --btn-hover-opacity: 0.8;
+}

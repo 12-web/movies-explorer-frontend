@@ -1,0 +1,34 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--main-bg-color);
+  position: relative;
+}
+.root_blocked {
+  height: 100vw;
+  overflow: hidden;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  position: relative;
+}
+
+@media screen and (max-width: 600px) {
+}
+
+.link {
+  text-decoration: none;
+  transition: opacity var(--base-transition);
+}
+
+.link:hover {
+  opacity: var(--link-hover-opacity);
+}
+.button_col_green {
+  background-color: var(--main-accent);
+}

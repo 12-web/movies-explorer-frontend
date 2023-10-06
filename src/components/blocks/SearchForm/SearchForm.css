@@ -1,0 +1,102 @@
+.movies__search-outer-container {
+  padding-bottom: 69px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--border-dark);
+}
+.movies__search {
+  box-sizing: border-box;
+  border-radius: 9px;
+  background-color: var(--smoke);
+  display: flex;
+}
+.movies__search-inner-container {
+  display: flex;
+  flex-grow: 1;
+  padding: 19px;
+  align-items: center;
+}
+.movies__input-container {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+.movies__input {
+  border: none;
+  background: transparent;
+  padding: 9px;
+  margin-right: 10px;
+  width: 100%;
+  color: var(--white);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.11;
+}
+.movies__input:focus {
+  outline: 1px solid var(--second-accent);
+  outline-offset: 1px;
+  border-radius: 9px;
+}
+.movies__input::placeholder {
+  color: var(--gray);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.11;
+}
+.movies__search-icon {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  background: center / cover no-repeat
+    url("../../../assets/images/search-icon.svg");
+}
+.movies__search-submit {
+  padding: 9px 10px;
+  margin: 0;
+  border: none;
+  border-radius: 48px;
+  background-color: var(--second-accent);
+  color: var(--white);
+  text-align: center;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.64;
+  cursor: pointer;
+  transition: opacity var(--base-transition);
+}
+.movies__search-submit:hover {
+  opacity: var(--btn-hover-opacity);
+}
+
+@media screen and (max-width: 1023px) {
+  .movies__checkbox-label {
+    margin: 16px 30px 16px 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .movies__search {
+    flex-direction: column;
+    background-color: transparent;
+    gap: 45px;
+  }
+  .movies__search-outer-container {
+    padding-bottom: 44px;
+  }
+  .movies__search-inner-container {
+    background-color: var(--smoke);
+  }
+  .movies__search-icon {
+    display: none;
+  }
+  .movies__input {
+    font-size: 14px;
+    line-height: 1.43;
+  }
+  .movies__input::placeholder {
+    font-size: 14px;
+    line-height: 1.43;
+  }
+}
