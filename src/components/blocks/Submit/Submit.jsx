@@ -7,9 +7,14 @@ import "./Submit.css";
  * @param { Object } props
  * @param { string } props.submitText - текст кнопки
  */
-export const Submit = ({ submitText }) => {
+export const Submit = ({ submitText, isValid }) => {
   return (
-    <button className="submit" type="submit" aria-label={submitText}>
+    <button
+      className={`submit ${isValid ? "" : "submit_disabled"}`}
+      type="submit"
+      aria-label={submitText}
+      disabled={!isValid}
+    >
       {submitText}
     </button>
   );

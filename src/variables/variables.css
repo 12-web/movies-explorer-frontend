@@ -8,6 +8,7 @@
   --pd-xs: 70px;
   --block-space-xl: var(--pd-xl) var(--offside-xl);
   --block-space-md: var(--pd-md) var(--offside-md);
+  --movies-space-md: 80px 30px;
   --block-space-s: var(--pd-xs) var(--offside-s);
   /*  ----------   general   ------------  */
   --width-xl: 1140px;
@@ -27,6 +28,8 @@
   --border-dark: #424242;
   --card-bg-gray: #303030;
   --main-accent: #3ddc84;
+  --text_disabled: #474646;
+  --submit_disabled: #142a4e;
   --second-accent: #4285f4;
   --warning: #ee3465;
   --base-transition: 0.4s ease-out;

@@ -8,17 +8,17 @@ import "./Navigation.css";
  * @component
  * @param { Object } props
  * @param { Object } props.data - объект с данными для навигационного меню (названия ссылок и др)
- * @param { boolean } props.isAuth - ваторизован полльзователь или нет
+ * @param { boolean } props.isLogged - авторизован полльзователь или нет
  * @param { boolean } props.isLocMain - главная страница или нет
  * @param { Object } props.props - дополнительные пропсы, относящиеся к меню-бургеру
  */
 
-export const Navigation = ({ data, isAuth, isLocMain, ...props }) => {
+export const Navigation = ({ data, isLogged, isLocMain, ...props }) => {
   const { unauth, auth } = data;
 
   return (
     <>
-      {isAuth ? (
+      {isLogged ? (
         <AuthNavbar {...props} isLocMain={isLocMain} data={auth} />
       ) : (
         <UnauthNavbar data={unauth} />
@@ -29,7 +29,7 @@ export const Navigation = ({ data, isAuth, isLocMain, ...props }) => {
 
 Navigation.propTypes = {
   data: PropTypes.object,
-  isAuth: PropTypes.bool,
+  isLogged: PropTypes.bool,
   isLocMain: PropTypes.bool,
   props: PropTypes.object,
 };

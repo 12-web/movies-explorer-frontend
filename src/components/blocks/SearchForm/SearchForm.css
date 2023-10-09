@@ -1,5 +1,5 @@
 .movies__search-outer-container {
-  padding-bottom: 69px;
+  padding-bottom: 40px;
   margin-bottom: 10px;
   border-bottom: 1px solid var(--border-dark);
 }
@@ -70,6 +70,13 @@
   opacity: var(--btn-hover-opacity);
 }
 
+.movies__form-error {
+  color: var(--warning);
+  text-align: center;
+  margin-top: 10px;
+  min-height: 20px;
+}
+
 @media screen and (max-width: 1023px) {
   .movies__checkbox-label {
     margin: 16px 30px 16px 0;
@@ -80,7 +87,7 @@
   .movies__search {
     flex-direction: column;
     background-color: transparent;
-    gap: 45px;
+    gap: 30px;
   }
   .movies__search-outer-container {
     padding-bottom: 44px;
@@ -98,5 +105,9 @@
   .movies__input::placeholder {
     font-size: 14px;
     line-height: 1.43;
+  }
+  .movies__form-error {
+    margin-top: 20px;
+    min-height: 15px;
   }
 }

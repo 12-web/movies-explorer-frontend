@@ -1,4 +1,4 @@
-import { useState } from "react";
+import PropTypes from "prop-types";
 import { Form } from "../../components/blocks/Form/Form";
 import { InputBlock } from "../../components/blocks/InputBlock/InputBlock";
 import { Submit } from "../../components/blocks/Submit/Submit";
@@ -6,88 +6,101 @@ import { Title } from "../../components/blocks/Title/Title";
 import { data } from "../../assets/data/data";
 import "./Profile.css";
 import { Button } from "../../components/blocks/Button/Button";
+import { useFormWithValidation } from "../../hooks/useFormWithValidation";
+import { useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { useEffect } from "react";
 
-export const Profile = ({ isFormLoading }) => {
-  const [userData, setUserData] = useState({
-    name: "",
-    email: "",
-  });
-  const [isModify, setIsModify] = useState(false);
-
-  const name = "Виталий";
+export const Profile = ({
+  onEdit,
+  response,
+  isErrorResponse = true,
+  isFormModify,
+  onSetFormModifyStatus,
+  onSignout,
+}) => {
+  const user = useContext(CurrentUserContext);
   const nameId = "name-profile";
   const emailId = "email-profile";
-  const isWarning = true;
   const { edit, signout, greet } = data.profile;
 
-  /** отправка формы при авторизации пользователя */
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsModify(false);
-    // onLogin(userData);
-    console.log(userData);
-  };
+  const { isValid, values, handleChange, handleSubmit, setValues } =
+    useFormWithValidation({ name: "", email: "" });
 
-  /** функция получения данных из формы */
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUserData({
-      ...userData,
-      [name]: value,
-    });
-  };
+  useEffect(() => {
+    setValues({ name: user.name, email: user.email });
+  }, [setValues, user]);
 
-  const handleEditClick = () => {
-    setIsModify(true);
-  };
+  const submitForm = handleSubmit(() => {
+    onEdit(values);
+  });
 
-  const handleSignoutClick = () => {};
+  const handleEditClick = () => onSetFormModifyStatus(true);
+
+  const handleSignoutClick = () => onSignout();
 
   return (
     <section className="profile">
       <div className="profile__inner-container">
-        <Title baseClass="profile">{`${greet.text} ${name}!`}</Title>
-        <Form
-          onSubmit={handleSubmit}
-          name="profile"
-          submitText={isFormLoading ? "Секундочку..." : "Cохранить"}
-        >
+        <Title baseClass="profile">{`${greet.text} ${user.name}!`}</Title>
+        <Form onSubmit={submitForm} name="profile">
           <fieldset className="form__inner-container">
             <InputBlock
               labelText="Имя"
               labelPos="center"
               baseClass="profile"
-              isValidated={false}
+              isCustomValidated={false}
               isBordered={true}
               id={nameId}
               type="text"
               name="name"
-              value={userData.name}
+              value={values.name}
               onChange={handleChange}
               required
-              disabled={!isModify}
+              disabled={!isFormModify}
             />
             <InputBlock
               labelText="E-mail"
               baseClass="profile"
               labelPos="center"
-              isValidated={false}
+              isCustomValidated={false}
               id={emailId}
               type="email"
               name="email"
-              value={userData.email}
+              value={values.email}
               onChange={handleChange}
               required
-              disabled={!isModify}
+              disabled={!isFormModify}
             />
           </fieldset>
           <div className="form__handles-container">
-            {isModify ? (
+            {!isErrorResponse ? (
+              <span
+                className={`form__response ${
+                  response ? "form__response_visible" : ""
+                }`}
+              >
+                {response}
+              </span>
+            ) : (
+              ""
+            )}
+
+            {isFormModify ? (
               <>
-                {isWarning && (
-                  <span className="form__error-response">Текст ошибки</span>
+                {isErrorResponse ? (
+                  <span
+                    className={`form__response form__response_is-error ${
+                      response ? "form__response_visible" : ""
+                    }`}
+                  >
+                    {response}
+                  </span>
+                ) : (
+                  ""
                 )}
-                <Submit submitText={edit.save.text} />
+
+                <Submit isValid={isValid} submitText={edit.save.text} />
               </>
             ) : (
               <>
@@ -107,4 +120,13 @@ export const Profile = ({ isFormLoading }) => {
       </div>
     </section>
   );
+};
+
+Profile.propTypes = {
+  onEdit: PropTypes.func,
+  response: PropTypes.string,
+  isErrorResponse: PropTypes.bool,
+  isFormModify: PropTypes.bool,
+  onSetFormModifyStatus: PropTypes.func,
+  onSignout: PropTypes.func,
 };

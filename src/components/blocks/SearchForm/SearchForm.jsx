@@ -13,7 +13,15 @@ import "./SearchForm.css";
  * @param { string } props.name - имя формы
  */
 
-export const SearchForm = ({ onSubmit, onChange, data, children, name }) => {
+export const SearchForm = ({
+  onSubmit,
+  onChange,
+  children,
+  name,
+  value,
+  formErrorText,
+  ...props
+}) => {
   return (
     <div className="movies__search-outer-container">
       <form
@@ -21,16 +29,18 @@ export const SearchForm = ({ onSubmit, onChange, data, children, name }) => {
         className="movies__search"
         action=""
         name={name}
+        noValidate
       >
         <div className="movies__search-inner-container">
           <div className="movies__input-container">
             <span className="movies__search-icon" />
             <input
-              name="title"
-              value={data.title}
+              name={name}
               onChange={onChange}
               placeholder="Поиск"
               className="movies__input"
+              value={value}
+              {...props}
             />
           </div>
           <Button className="movies__search-submit" type="submit">
@@ -39,6 +49,7 @@ export const SearchForm = ({ onSubmit, onChange, data, children, name }) => {
         </div>
         {children}
       </form>
+      <p className="section-text movies__form-error">{formErrorText}</p>
     </div>
   );
 };
@@ -48,5 +59,5 @@ SearchForm.propTypes = {
   onChange: PropTypes.func,
   children: PropTypes.node,
   name: PropTypes.string,
-  data: PropTypes.object,
+  data: PropTypes.string,
 };

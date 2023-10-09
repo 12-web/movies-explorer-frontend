@@ -20,18 +20,22 @@
   flex-direction: column;
   margin-top: 92px;
 }
-.form__error-response {
+.form__response {
   opacity: 0;
   visibility: hidden;
-  color: var(--warning);
+  color: var(--second-accent);
   text-align: center;
   font-size: 11px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  margin: 0 0 20px;
+  min-height: 14px;
+  margin: 0 0 18px;
 }
-.form__error-response_visible {
+.form__response_is-error {
+  color: var(--warning);
+}
+.form__response_visible {
   opacity: 1;
   visibility: visible;
 }
