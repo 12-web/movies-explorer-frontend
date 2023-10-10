@@ -6,9 +6,9 @@ import PropTypes from "prop-types";
  * @component
  * @param { Object } props
  * @param { JSX.Element } props.element - передаваемый компонент
- * @param { Array } props.props - дополнительные пропрсы, передаваемые в компонент
+ * @param { Array } props.props - дополнительные пропсы, передаваемые в компонент
  */
-export const ProtectedRoute = ({ element: Component, ...props }) => {
+export const ProtectedRoute = ({ component: Component, ...props }) => {
   return props.isLogged ? (
     <Component {...props} />
   ) : (

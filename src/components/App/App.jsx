@@ -33,7 +33,9 @@ const App = () => {
   const [isErrorResponse, setIsErrorResponse] = useState(true);
   const [isFormModify, setIsFormModify] = useState(false);
   const [isFormBlocked, setIsFormBlocked] = useState(false);
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(
+    JSON.parse(localStorage.getItem("isLogged"))
+  );
   const [savedMovies, setSavedMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -43,7 +45,6 @@ const App = () => {
   const listOfFooterDisplayed = ["/", "/movies", "/saved-movies"];
   const isHeaderDisplayed = listOfHeaderDisplayed.includes(location.pathname);
   const isFooterDisplayed = listOfFooterDisplayed.includes(location.pathname);
-
   useEffect(() => {
     handleGetSavedMovies();
   }, [isLogged]);
@@ -52,6 +53,7 @@ const App = () => {
     const isUserLogged = localStorage.getItem("isLogged");
     const fetchUserInfo = async () => {
       try {
+        console.log(isLogged);
         const user = await auth.getUserInfo();
         setIsLogged(true);
         setCurrentUser(user);
@@ -198,21 +200,6 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route
-              path="/movies"
-              element={
-                <ProtectedRoute
-                  isLoading={isLoading}
-                  onSignout={handleSignOut}
-                  onRemoveSavedMovie={handleRemoveSavedMovie}
-                  onAddSavedMovie={handleAddSavedMovie}
-                  savedMovies={savedMovies}
-                  onGetMovies={handleGetMovies}
-                  isLogged={isLogged}
-                  element={Movies}
-                />
-              }
-            />
-            <Route
               path="/saved-movies"
               element={
                 <ProtectedRoute
@@ -220,7 +207,7 @@ const App = () => {
                   onRemoveSavedMovie={handleRemoveSavedMovie}
                   savedMovies={savedMovies}
                   isLogged={isLogged}
-                  element={SavedMovies}
+                  component={SavedMovies}
                 />
               }
             />
@@ -235,7 +222,7 @@ const App = () => {
                   onEdit={handleEditProfile}
                   onSignout={handleSignOut}
                   isLogged={isLogged}
-                  element={Profile}
+                  component={Profile}
                 />
               }
             />
@@ -255,10 +242,25 @@ const App = () => {
               }
             />
             <Route
+              path="/movies"
+              element={
+                <ProtectedRoute
+                  isLoading={isLoading}
+                  isLogged={isLogged}
+                  onSignout={handleSignOut}
+                  onRemoveSavedMovie={handleRemoveSavedMovie}
+                  onAddSavedMovie={handleAddSavedMovie}
+                  onGetMovies={handleGetMovies}
+                  savedMovies={savedMovies}
+                  component={Movies}
+                />
+              }
+            />
+            <Route
               path="/signup"
               element={
                 isLogged ? (
-                  <Navigate to="/movies" replace />
+                  <Navigate to="/" />
                 ) : (
                   <Register
                     isFormBlocked={isFormBlocked}
