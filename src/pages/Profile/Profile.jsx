@@ -10,6 +10,7 @@ import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 import { useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useEffect } from "react";
+import { useState } from "react";
 
 export const Profile = ({
   onEdit,
@@ -26,6 +27,9 @@ export const Profile = ({
 
   const { isValid, values, handleChange, handleSubmit, setValues } =
     useFormWithValidation({ name: "", email: "" });
+
+  const userDataValidiity =
+    isValid && (user.name !== values.name || user.email !== values.email);
 
   useEffect(() => {
     setValues({ name: user.name, email: user.email });
@@ -100,7 +104,10 @@ export const Profile = ({
                   ""
                 )}
 
-                <Submit isValid={isValid} submitText={edit.save.text} />
+                <Submit
+                  isValid={userDataValidiity}
+                  submitText={edit.save.text}
+                />
               </>
             ) : (
               <>

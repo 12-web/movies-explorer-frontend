@@ -66,6 +66,7 @@ const App = () => {
 
   useEffect(() => {
     setResponse("");
+    setIsFormModify(false);
   }, [location]);
 
   const handleSignUp = async (userData) => {
