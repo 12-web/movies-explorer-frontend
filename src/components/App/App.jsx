@@ -32,6 +32,7 @@ const App = () => {
   const [response, setResponse] = useState("");
   const [isErrorResponse, setIsErrorResponse] = useState(true);
   const [isFormModify, setIsFormModify] = useState(false);
+  const [isFormBlocked, setIsFormBlocked] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
   const [savedMovies, setSavedMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -92,6 +93,7 @@ const App = () => {
 
   const handleSignIn = async (userData) => {
     try {
+      setIsFormBlocked(true);
       await auth.authorize(userData);
       const user = await auth.getUserInfo();
       setCurrentUser(user);
@@ -105,6 +107,8 @@ const App = () => {
       } else {
         setResponse(MESSAGES.serverError);
       }
+    } finally {
+      setIsFormBlocked(false);
     }
   };
 
@@ -242,6 +246,7 @@ const App = () => {
                   <Navigate to="/movies" replace />
                 ) : (
                   <Login
+                    isFormBlocked={isFormBlocked}
                     onLogin={handleSignIn}
                     isErrorResponse={isErrorResponse}
                     response={response}
@@ -256,6 +261,7 @@ const App = () => {
                   <Navigate to="/movies" replace />
                 ) : (
                   <Register
+                    isFormBlocked={isFormBlocked}
                     onRegister={handleSignUp}
                     isErrorResponse={isErrorResponse}
                     response={response}

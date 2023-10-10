@@ -9,7 +9,12 @@ import { Submit } from "../../components/blocks/Submit/Submit";
 import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 import "./Login.css";
 
-export const Login = ({ onLogin, response, isErrorResponse = true }) => {
+export const Login = ({
+  isFormBlocked,
+  onLogin,
+  response,
+  isErrorResponse = true,
+}) => {
   const emailId = "email-signin";
   const passwordId = "password-signin";
   const { title, submit, link } = data.login;
@@ -44,6 +49,7 @@ export const Login = ({ onLogin, response, isErrorResponse = true }) => {
               value={values.email}
               onChange={handleChange}
               errorText={errors.email}
+              disabled={isFormBlocked}
               required
             />
             <InputBlock
@@ -58,6 +64,7 @@ export const Login = ({ onLogin, response, isErrorResponse = true }) => {
               value={values.password}
               onChange={handleChange}
               errorText={errors.password}
+              disabled={isFormBlocked}
               required
             />
           </fieldset>

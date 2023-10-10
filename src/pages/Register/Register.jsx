@@ -9,7 +9,12 @@ import { data } from "../../assets/data/data";
 import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 import "./Register.css";
 
-export const Register = ({ onRegister, response, isErrorResponse = true }) => {
+export const Register = ({
+  isFormBlocked,
+  onRegister,
+  response,
+  isErrorResponse = true,
+}) => {
   const nameId = "name-signup";
   const emailId = "email-signup";
   const passwordId = "password-signup";
@@ -49,6 +54,7 @@ export const Register = ({ onRegister, response, isErrorResponse = true }) => {
               minLength={2}
               maxLength={30}
               required
+              disabled={isFormBlocked}
               pattern="[A-Za-zА-Яа-яЁё\-\s]{1,}"
             />
             <InputBlock
@@ -62,6 +68,7 @@ export const Register = ({ onRegister, response, isErrorResponse = true }) => {
               type="email"
               name="email"
               value={values.email}
+              disabled={isFormBlocked}
               onChange={handleChange}
               required
             />
@@ -77,6 +84,7 @@ export const Register = ({ onRegister, response, isErrorResponse = true }) => {
               name="password"
               value={values.password}
               onChange={handleChange}
+              disabled={isFormBlocked}
               required
             />
           </fieldset>
