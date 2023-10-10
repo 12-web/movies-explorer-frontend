@@ -26,7 +26,9 @@ export const Login = ({ onLogin, response, isErrorResponse = true }) => {
   return (
     <section className="login">
       <div className="login__inner-container">
-        <Logo baseClass="login" />
+        <Link className="login__logo-link" to="/">
+          <Logo baseClass="login" />
+        </Link>
         <Title>{title}</Title>
         <Form onSubmit={submitForm} name="signIn">
           <fieldset className="form__inner-container">

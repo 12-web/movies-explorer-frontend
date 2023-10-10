@@ -12,10 +12,6 @@
   margin: 0 auto;
 }
 
-.login__logo {
-  margin-bottom: 40px;
-}
-
 .login__text {
   color: var(--gray);
   text-align: center;
@@ -28,6 +24,12 @@
 }
 .login__link {
   color: var(--second-accent);
+  margin-bottom: 40px;
+}
+
+.login__logo-link {
+  align-self: flex-start;
+  margin-bottom: 40px;
 }
 @media screen and (max-width: 1023px) {
   .login__inner-container {

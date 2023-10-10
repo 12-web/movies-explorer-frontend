@@ -28,7 +28,9 @@ export const Register = ({ onRegister, response, isErrorResponse = true }) => {
   return (
     <section className="register">
       <div className="register__inner-container">
-        <Logo baseClass="register" />
+        <Link className="register__logo-link" to="/">
+          <Logo baseClass="register" />
+        </Link>
         <Title>{title}</Title>
         <Form onSubmit={submitForm} name="signIn">
           <fieldset className="form__inner-container">
