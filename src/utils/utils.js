@@ -7,14 +7,14 @@ export const filterMovies = (movies = [], isShort) => {
 };
 
 export const searchMovies = (movies, query) => {
-  const movieQueryList = query.toLowerCase().split(" ");
+  const movieQuery = query.toLowerCase().trim();
 
   return movies.filter((movie) => {
-    const movieNameRUList = movie.nameRU.toLowerCase().split(" ");
-    const movieNameENList = movie.nameEN.toLowerCase().split(" ");
+    const movieNameRU = movie.nameRU.toLowerCase();
+    const movieNameEN = movie.nameEN.toLowerCase();
     return (
-      movieNameRUList.some((word) => movieQueryList.includes(word)) ||
-      movieNameENList.some((word) => movieQueryList.includes(word))
+      movieNameRU.indexOf(movieQuery) !== -1 ||
+      movieNameEN.indexOf(movieQuery) !== -1
     );
   });
 };
