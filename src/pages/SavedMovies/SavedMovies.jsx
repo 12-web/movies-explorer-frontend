@@ -8,19 +8,30 @@ import { SearchForm } from "../../components/blocks/SearchForm/SearchForm";
 import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 import { useQueryResponse } from "../../hooks/useQueryResponse";
 import { MESSAGES } from "../../utils/constants";
-import { filterMovies, searchMovies } from "../../utils/utils";
+import { searchMovies } from "../../utils/utils";
 import "../Movies/Movies.css";
 
 export const SavedMovies = ({ savedMovies, onRemoveSavedMovie, isLoading }) => {
   const [displayedSavedMovies, setDisplayedSavedMovies] = useState([]);
-  const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
   const [formErrorText, setFormErrorText] = useState("");
   useEffect(() => {
     setDisplayedSavedMovies(savedMovies);
-    setFilteredSavedMovies(savedMovies);
   }, [savedMovies]);
-  const { responseMessage, setResponseMessage, displayResponseError } =
-    useQueryResponse();
+  const { responseMessage, setResponseMessage } = useQueryResponse();
+
+  const displayMovies = (movies, searchOptions) => {
+    const { movieName, isShort } = searchOptions;
+
+    const searchedResult = searchMovies(movies, movieName, isShort);
+
+    if (searchedResult.length) {
+      setDisplayedSavedMovies(searchedResult);
+      setResponseMessage("");
+    } else {
+      setResponseMessage(MESSAGES.contentNotFound);
+      setDisplayedSavedMovies([]);
+    }
+  };
 
   const { values, handleChange, handleSubmit, isValid } = useFormWithValidation(
     {
@@ -32,16 +43,10 @@ export const SavedMovies = ({ savedMovies, onRemoveSavedMovie, isLoading }) => {
   const submitForm = handleSubmit(() => {
     if (isValid) {
       setFormErrorText("");
-      const searchedResult = searchMovies(savedMovies, values.movieName);
-      if (searchedResult.length) {
-        const filteredResult = filterMovies(searchedResult, values.isShort);
-        setFilteredSavedMovies(searchedResult);
-        setDisplayedSavedMovies(filteredResult);
-      } else {
-        setDisplayedSavedMovies([]);
-      }
-
-      displayResponseError(!searchedResult.length, MESSAGES.contentNotFound);
+      displayMovies(savedMovies, {
+        movieName: values.movieName,
+        isShort: values.isShort,
+      });
     } else {
       setFormErrorText(MESSAGES.searchNameError);
     }
@@ -49,20 +54,12 @@ export const SavedMovies = ({ savedMovies, onRemoveSavedMovie, isLoading }) => {
 
   const handleCheckboxChange = (e) => {
     handleChange(e);
-    if (e.target.checked) {
-      const filteredResult = filterMovies(
-        displayedSavedMovies,
-        e.target.checked
-      );
-      displayResponseError(!filteredResult.length, MESSAGES.contentNotFound);
-      setDisplayedSavedMovies(filteredResult);
-    } else {
-      if (displayedSavedMovies.length) {
-        setResponseMessage("");
-        setDisplayedSavedMovies(filteredSavedMovies);
-      }
-    }
+    displayMovies(savedMovies, {
+      movieName: values.movieName,
+      isShort: e.target.checked,
+    });
   };
+
   return (
     <section className="movies">
       <div className="movies__inner-container">

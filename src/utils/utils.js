@@ -6,10 +6,10 @@ export const filterMovies = (movies = [], isShort) => {
     : movies;
 };
 
-export const searchMovies = (movies, query) => {
+export const searchMovies = (movies, query, isShort) => {
   const movieQuery = query.toLowerCase().trim();
 
-  return movies.filter((movie) => {
+  const searchedMovies = movies.filter((movie) => {
     const movieNameRU = movie.nameRU.toLowerCase();
     const movieNameEN = movie.nameEN.toLowerCase();
     return (
@@ -17,4 +17,6 @@ export const searchMovies = (movies, query) => {
       movieNameEN.indexOf(movieQuery) !== -1
     );
   });
+
+  return filterMovies(searchedMovies, isShort);
 };

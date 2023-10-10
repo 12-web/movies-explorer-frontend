@@ -8,10 +8,10 @@ import Preloader from "../../components/blocks/Preloader/Preloader";
 import { SearchForm } from "../../components/blocks/SearchForm/SearchForm";
 import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 import { useResize } from "../../hooks/useResize";
-import { filterMovies, searchMovies } from "../../utils/utils";
+import { searchMovies } from "../../utils/utils";
 import { useQueryResponse } from "../../hooks/useQueryResponse";
-import "./Movies.css";
 import { MESSAGES } from "../../utils/constants";
+import "./Movies.css";
 
 export const Movies = ({
   onGetMovies,
@@ -23,7 +23,7 @@ export const Movies = ({
   const [formErrorText, setFormErrorText] = useState("");
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [displayedMovies, setDisplayedMovies] = useState([]);
-  const [searchedMovies, setSearchedMovies] = useState([]);
+  const [fullMoviesList, setFullMovieList] = useState([]);
   const [isFullMoviesCount, setIsFullMoviesCount] = useState(false);
   const { screen } = useResize();
 
@@ -43,21 +43,33 @@ export const Movies = ({
     const movieName = localStorage.getItem("movieName");
     if (movieName) {
       const isShort = JSON.parse(localStorage.getItem("isShort"));
-      const searchedMovies = JSON.parse(localStorage.getItem("searchedMovies"));
-      const displayedMovies = JSON.parse(
-        localStorage.getItem("displayedMovies")
-      );
-      const filteredMovies = JSON.parse(localStorage.getItem("filteredMovies"));
-      setSearchedMovies(searchedMovies);
-      setFilteredMovies(filteredMovies);
-      setDisplayedMovies(displayedMovies);
-      setIsFullMoviesCount(searchedMovies >= displayedMovies);
+      const fullMoviesList = JSON.parse(localStorage.getItem("fullMoviesList"));
+      setFullMovieList(fullMoviesList);
+      displayMovies(fullMoviesList, {
+        movieName,
+        isShort,
+      });
       setValues({
-        movieName: movieName,
-        isShort: isShort,
+        movieName,
+        isShort,
       });
     }
   }, []);
+
+  const displayMovies = (movies, searchOptions) => {
+    const { movieName, isShort } = searchOptions;
+    const searchedResult = searchMovies(movies, movieName, isShort);
+    const initialMoviesArray = searchedResult.slice(0, screen.initialMovies);
+    setDisplayedMovies(initialMoviesArray);
+    if (initialMoviesArray.length) {
+      setFilteredMovies(searchedResult);
+      setResponseMessage("");
+      setIsFullMoviesCount(initialMoviesArray.length >= searchedResult.length);
+    } else {
+      setResponseMessage(MESSAGES.contentNotFound);
+      setIsFullMoviesCount(true);
+    }
+  };
 
   const submitForm = handleSubmit(async () => {
     if (isValid) {
@@ -66,39 +78,16 @@ export const Movies = ({
       try {
         setIsStartedSearch(true);
         const fullMoviesList = await onGetMovies(values);
-        const searchedResult = searchMovies(fullMoviesList, values.movieName);
-        const filteredResult = filterMovies(searchedResult, values.isShort);
-        const initialMoviesArray = filteredResult.slice(
-          0,
-          screen.initialMovies
-        );
-        setDisplayedMovies(initialMoviesArray);
 
-        if (!initialMoviesArray.length) {
-          setResponseMessage(MESSAGES.contentNotFound);
-          setIsFullMoviesCount(true);
-        } else {
-          setSearchedMovies(searchedResult);
-          setFilteredMovies(filteredResult);
-          setIsFullMoviesCount(
-            initialMoviesArray.length >= filteredResult.length
-          );
+        localStorage.setItem("fullMoviesList", JSON.stringify(fullMoviesList));
+        localStorage.setItem("movieName", values.movieName);
+        localStorage.setItem("isShort", values.isShort);
 
-          localStorage.setItem(
-            "filteredMovies",
-            JSON.stringify(filteredResult)
-          );
-          localStorage.setItem(
-            "displayedMovies",
-            JSON.stringify(initialMoviesArray)
-          );
-          localStorage.setItem(
-            "searchedMovies",
-            JSON.stringify(searchedResult)
-          );
-          localStorage.setItem("movieName", values.movieName);
-          localStorage.setItem("isShort", values.isShort);
-        }
+        setFullMovieList(fullMoviesList);
+        displayMovies(fullMoviesList, {
+          movieName: values.movieName,
+          isShort: values.isShort,
+        });
       } catch (err) {
         console.log(err);
         setDisplayedMovies([]);
@@ -109,41 +98,21 @@ export const Movies = ({
     }
   });
 
-  const handleFilterShortMovies = (checked) => {
-    if (displayedMovies.length) {
-      const filteredResult = filterMovies(searchedMovies, checked);
-      const initialMoviesArray = filteredResult.slice(0, screen.initialMovies);
-      if (filteredResult.length) {
-        setResponseMessage("");
-        setFilteredMovies(filteredResult);
-        setDisplayedMovies(initialMoviesArray);
-        setIsFullMoviesCount(
-          initialMoviesArray.length >= filteredResult.length
-        );
-
-        localStorage.setItem("filteredMovies", JSON.stringify(filteredResult));
-        localStorage.setItem("isShort", checked);
-        localStorage.setItem(
-          "displayedMovies",
-          JSON.stringify(initialMoviesArray)
-        );
-      } else {
-        setResponseMessage(MESSAGES.contentNotFound);
-        setDisplayedMovies([]);
-        setIsFullMoviesCount(true);
-      }
-    }
-  };
-
   const handleAddMoviesButtonClick = () => {
     const newMoviesCount = displayedMovies.length + screen.increaseMovies;
     setDisplayedMovies(filteredMovies.slice(0, newMoviesCount));
-    setIsFullMoviesCount(newMoviesCount >= searchedMovies.length);
+    setIsFullMoviesCount(newMoviesCount >= filteredMovies.length);
   };
 
   const handleCheckboxClick = (e) => {
     handleChange(e);
-    handleFilterShortMovies(e.target.checked);
+    displayMovies(fullMoviesList, {
+      movieName: values.movieName,
+      isShort: e.target.checked,
+    });
+
+    localStorage.setItem("isShort", e.target.checked);
+    localStorage.setItem("movieName", values.movieName);
   };
 
   return (
