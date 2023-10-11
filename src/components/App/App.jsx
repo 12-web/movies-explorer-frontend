@@ -70,10 +70,12 @@ const App = () => {
   useEffect(() => {
     setResponse("");
     setIsFormModify(false);
+    setIsFormBlocked(false);
   }, [location]);
 
   const handleSignUp = async (userData) => {
     try {
+      setIsFormBlocked(true);
       const user = await auth.register(userData);
       const signin = await auth.authorize({
         email: userData.email,
@@ -85,6 +87,7 @@ const App = () => {
 
       navigate("/movies", { replace: true });
     } catch (err) {
+      setIsFormBlocked(false);
       if (err === 409) {
         setResponse(MESSAGES.emailExistError);
       } else {
@@ -104,13 +107,12 @@ const App = () => {
 
       navigate("/movies", { replace: true });
     } catch (err) {
+      setIsFormBlocked(false);
       if (err === 401) {
         setResponse(MESSAGES.incorrectSignin);
       } else {
         setResponse(MESSAGES.serverError);
       }
-    } finally {
-      setIsFormBlocked(true);
     }
   };
 
