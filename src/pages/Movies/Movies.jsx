@@ -54,7 +54,7 @@ export const Movies = ({
         isShort,
       });
     }
-  }, []);
+  }, [screen]);
 
   const displayMovies = (movies, searchOptions) => {
     const { movieName, isShort } = searchOptions;

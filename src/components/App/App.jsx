@@ -110,7 +110,7 @@ const App = () => {
         setResponse(MESSAGES.serverError);
       }
     } finally {
-      setIsFormBlocked(false);
+      setIsFormBlocked(true);
     }
   };
 
