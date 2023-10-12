@@ -1,6 +1,8 @@
 # Фронтенд дипломной работы
 
 Макет: **dark-1**
+Ссылка на проект: https://yp.chudnov.diploma.nomoredomainsrocks.ru/
+Ссылка на pull request: https://github.com/12-web/movies-explorer-frontend/pull/2
 
 # Getting Started with Create React App
 

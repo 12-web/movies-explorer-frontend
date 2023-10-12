@@ -1,12 +1,18 @@
 .movie-card {
+  text-decoration: none;
   display: grid;
   align-items: center;
   column-gap: 20px;
   grid-template-columns: 1fr min-content;
+  position: relative;
+  z-index: 1;
   grid-template-areas:
     "banner banner"
     "name button"
     "duration duration";
+}
+.movie-card__link {
+  grid-area: banner;
 }
 .movie-card__banner {
   grid-area: banner;
@@ -78,5 +84,9 @@
   }
   .movie-card__duration {
     font-size: 10px;
+  }
+  .movie-card__button_type_remove {
+    opacity: 1;
+    visibility: visible;
   }
 }

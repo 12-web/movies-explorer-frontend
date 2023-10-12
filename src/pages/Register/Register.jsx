@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Title } from "../../components/blocks/Title/Title";
@@ -7,77 +6,69 @@ import { InputBlock } from "../../components/blocks/InputBlock/InputBlock";
 import { Logo } from "../../components/blocks/Logo/Logo";
 import { Submit } from "../../components/blocks/Submit/Submit";
 import { data } from "../../assets/data/data";
+import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 import "./Register.css";
 
-/**
- * Компонент страницы авторизации пользователя
- * @component
- * @param { Object } props
- * @param { boolean } props.isFormLoading - состояние ожидания ответа от сервера при отправке формы
- * @param { function } props.onLogin - функция авторизации пользователя
- */
-export const Register = ({ isFormLoading, onRegister }) => {
-  const [userData, setUserData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+export const Register = ({
+  isFormBlocked,
+  onRegister,
+  response,
+  isErrorResponse = true,
+}) => {
   const nameId = "name-signup";
   const emailId = "email-signup";
   const passwordId = "password-signup";
-  const isWarning = true;
   const { title, submit, link } = data.register;
 
-  /** отправка формы при авторизации пользователя */
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // onRegister(userData);
-    console.log(userData);
-  };
-
-  /** функция получения данных из формы */
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUserData({
-      ...userData,
-      [name]: value,
+  const { isValid, values, handleChange, handleSubmit, errors } =
+    useFormWithValidation({
+      name: "",
+      email: "",
+      password: "",
     });
-  };
+  const submitForm = handleSubmit(() => {
+    onRegister(values);
+  });
 
   return (
     <section className="register">
       <div className="register__inner-container">
-        <Logo baseClass="register" />
+        <Link className="register__logo-link" to="/">
+          <Logo baseClass="register" />
+        </Link>
         <Title>{title}</Title>
-        <Form
-          onSubmit={handleSubmit}
-          name="signIn"
-          submitText={isFormLoading ? "Секундочку..." : "Войти"}
-        >
+        <Form onSubmit={submitForm} name="signIn">
           <fieldset className="form__inner-container">
             <InputBlock
               labelText="Имя"
               baseClass="register"
               labelPos="top"
-              isValidated={true}
+              isCustomValidated={true}
+              errorText={errors.name}
               isBordered={true}
               id={nameId}
               type="text"
               name="name"
-              value={userData.name}
+              value={values.name}
               onChange={handleChange}
+              minLength={2}
+              maxLength={30}
               required
+              disabled={isFormBlocked}
+              pattern="[A-Za-zА-Яа-яЁё\-\s]{1,}"
             />
             <InputBlock
               labelText="E-mail"
               baseClass="register"
               labelPos="top"
-              isValidated={true}
+              isCustomValidated={true}
+              errorText={errors.email}
               isBordered={true}
               id={emailId}
               type="email"
               name="email"
-              value={userData.email}
+              value={values.email}
+              disabled={isFormBlocked}
               onChange={handleChange}
               required
             />
@@ -85,25 +76,27 @@ export const Register = ({ isFormLoading, onRegister }) => {
               labelText="Пароль"
               labelPos="top"
               baseClass="register"
-              isValidated={true}
+              isCustomValidated={true}
+              errorText={errors.password}
               isBordered={true}
               id={passwordId}
               type="password"
               name="password"
-              value={userData.password}
+              value={values.password}
               onChange={handleChange}
+              disabled={isFormBlocked}
               required
             />
           </fieldset>
           <div className="form__handles-container">
             <span
-              className={`form__error-response ${
-                isWarning ? "form__error-response_visible" : ""
-              }`}
+              className={`form__response ${
+                response ? "form__response_visible" : ""
+              } ${isErrorResponse ? "form__response_is-error" : ""}`}
             >
-              Текст ошибки
+              {response}
             </span>
-            <Submit submitText={submit} />
+            <Submit isValid={isValid} submitText={submit} />
           </div>
         </Form>
         <p className="text login__text">
@@ -118,6 +111,7 @@ export const Register = ({ isFormLoading, onRegister }) => {
 };
 
 Register.propTypes = {
-  isFormLoading: PropTypes.bool,
-  onLogin: PropTypes.func,
+  onRegister: PropTypes.func,
+  response: PropTypes.string,
+  isErrorResponse: PropTypes.bool,
 };

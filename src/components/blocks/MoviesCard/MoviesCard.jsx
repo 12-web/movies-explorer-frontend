@@ -1,7 +1,6 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
-import "./MoviesCard.css";
 import { Button } from "../Button/Button";
+import "./MoviesCard.css";
 
 /**
  * Компонент карточки фильма
@@ -15,35 +14,94 @@ import { Button } from "../Button/Button";
  * @param { boolean } props.onClick - функция нажатия на иконку лайка / удаления
  */
 
-export const MoviesCard = ({ data, isSaved, onClick }) => {
-  const { banner, name = "asdasd", duration = "asd" } = data;
-  const [isActive, setIsActive] = useState(false);
+export const MoviesCard = ({
+  onAddSavedMovie,
+  onRemoveSavedMovie,
+  data,
+  savedMovies,
+  savedMovieDisplay = false,
+}) => {
+  const {
+    id,
+    country,
+    description,
+    director,
+    nameRU,
+    nameEN,
+    duration,
+    image,
+    trailerLink,
+    year,
+    _id,
+  } = data;
+  const checkSavedMovie = (movies, movieId) => {
+    return movies.find((m) => m.movieId === movieId);
+  };
+  const savedMovie = checkSavedMovie(savedMovies, id);
+  const baseURL = "https://api.nomoreparties.co";
+  const imageLink = image.url ? baseURL + image.url : image;
 
-  const handleClick = () => {
-    setIsActive(!isActive);
-    // onClick();
+  const displayedMovieDuration = (duration) => {
+    if (duration >= 60) {
+      return `${(duration / 60).toFixed(0)}ч ${duration % 60}м`;
+    }
+    return `${duration}м`;
   };
 
+  const handleDeleteClick = () => {
+    onRemoveSavedMovie(_id);
+  };
+
+  const handleLikeClick = () => {
+    const movieData = {
+      country,
+      director,
+      duration,
+      year,
+      description,
+      image: baseURL + image.url,
+      trailerLink: trailerLink + ".ru",
+      thumbnail: "https://google.com",
+      movieId: id,
+      nameRU,
+      nameEN,
+    };
+
+    savedMovie
+      ? onRemoveSavedMovie(savedMovie._id)
+      : onAddSavedMovie(movieData);
+  };
   return (
     <div className="movie-card">
-      <img className="movie-card__banner" src={banner} alt="" />
-      <p className="movie-card__name">{name}</p>
-      {isSaved ? (
+      <a
+        className="movie-card__link"
+        aria-label="Перейти к трейлеру фильма"
+        href={trailerLink}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <img className="movie-card__banner" src={imageLink} alt="" />
+      </a>
+      <p className="movie-card__name">{nameRU}</p>
+      {savedMovieDisplay ? (
         <Button
-          onClick={onClick}
+          onClick={handleDeleteClick}
           className="movie-card__button movie-card__button_type_remove"
           ariaLabel="Удалить карточку"
         />
       ) : (
         <Button
-          onClick={handleClick}
+          onClick={handleLikeClick}
           ariaLabel="Лайкнуть фильм"
           className={`movie-card__button movie-card__button_type_like ${
-            isActive ? "movie-card__button_type_like_active" : ""
+            savedMovie ? "movie-card__button_type_like_active" : ""
           }`}
         />
       )}
-      <span className="movie-card__duration">{duration}</span>
+
+      <span className="movie-card__duration">
+        {displayedMovieDuration(duration)}
+      </span>
     </div>
   );
 };
@@ -52,7 +110,7 @@ MoviesCard.propTypes = {
   data: PropTypes.PropTypes.shape({
     banner: PropTypes.string,
     name: PropTypes.string,
-    duration: PropTypes.string,
+    duration: PropTypes.number,
   }),
   isSaved: PropTypes.bool,
   onClick: PropTypes.func,

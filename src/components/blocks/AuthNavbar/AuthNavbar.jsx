@@ -1,8 +1,7 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
 import { Link, NavLink } from "react-router-dom";
-import "./AuthNavbar.css";
 import { MenuBurger } from "../MenuBurger/MenuBurger";
+import "./AuthNavbar.css";
 
 /**
  * Компонент меню авторизованного пользователя
@@ -24,12 +23,14 @@ export const AuthNavbar = ({
 }) => {
   const { account, links } = data;
 
-  const handleBurgerClick = () => onChangeMenuOpenness(!isMenuOpened);
-  const handleLinkClick = () => onChangeMenuOpenness(!isMenuOpened);
+  const handleLinkClick = () => onChangeMenuOpenness(false);
 
   return (
     <nav className="header__nav header__nav_type_auth">
-      <MenuBurger isMenuOpened={isMenuOpened} onClick={handleBurgerClick} />
+      <MenuBurger
+        isMenuOpened={isMenuOpened}
+        onChangeMenuOpenness={onChangeMenuOpenness}
+      />
       <div
         className={`header__nav-inner-container ${
           isMenuOpened ? "header__nav-inner-container_opened" : ""

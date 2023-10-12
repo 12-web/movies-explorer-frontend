@@ -12,6 +12,7 @@ export const PageNotFound = () => {
         <p className="not-found__title">404</p>
         <p className="not-found__text">Страница не найдена</p>
       </div>
+
       <Button onClick={handleClick} className="not-found__button">
         Назад
       </Button>

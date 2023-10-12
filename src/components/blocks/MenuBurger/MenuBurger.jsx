@@ -10,12 +10,12 @@ import "./MenuBurger.css";
  * @param { boolean } props.isMenuOpened - состояние открытия бургера
  */
 
-export const MenuBurger = ({ onClick, isMenuOpened }) => {
+export const MenuBurger = ({ isMenuOpened, onChangeMenuOpenness }) => {
   const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 
   const handleClick = () => {
-    onClick();
     setBurgerIsOpen(!burgerIsOpen);
+    onChangeMenuOpenness(!isMenuOpened);
   };
 
   return (

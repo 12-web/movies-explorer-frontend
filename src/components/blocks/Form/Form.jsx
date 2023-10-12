@@ -11,7 +11,14 @@ import "./Form.css";
  */
 export const Form = ({ onSubmit, name, children }) => {
   return (
-    <form onSubmit={onSubmit} className="form" id={name} action="#" name={name}>
+    <form
+      noValidate={true}
+      onSubmit={onSubmit}
+      className="form"
+      id={name}
+      action="#"
+      name={name}
+    >
       {children}
     </form>
   );

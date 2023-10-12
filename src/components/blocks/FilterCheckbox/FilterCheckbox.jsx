@@ -8,8 +8,8 @@ import "./FilterCheckbox.css";
  * @param { Object } props.data - объект с данными чекбокса (текст лейбла, название элемента и др)
  * @param { function } props.onChange - функция изменения состояния чекбокса
  */
-export const FilterCheckbox = ({ data, onChange }) => {
-  const { baseClass, name, text } = data;
+export const FilterCheckbox = ({ name, data, onChange, ...props }) => {
+  const { baseClass, text } = data;
 
   return (
     <label
@@ -20,6 +20,7 @@ export const FilterCheckbox = ({ data, onChange }) => {
         name={name}
         onChange={onChange}
         id={name}
+        {...props}
         className={`checkbox ${baseClass}__checkbox`}
         type="checkbox"
       />

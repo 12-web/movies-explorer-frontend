@@ -13,16 +13,16 @@ import "./Input.css";
  */
 export const Input = ({
   onChange,
-  isValidated = false,
-  isWarning = false,
+  errorText,
+  isCustomValidated,
   isBordered = false,
   ...props
 }) => {
   return (
     <input
       onChange={onChange}
-      className={`input ${isWarning ? "input_is-warning" : ""} ${
-        isValidated ? "input_type_validated" : "input_type_default"
+      className={`input ${errorText ? "input_is-warning" : ""} ${
+        isCustomValidated ? "input_type_validated" : "input_type_default"
       } ${isBordered ? "input_is-bordered" : ""}`}
       {...props}
     />
@@ -31,7 +31,7 @@ export const Input = ({
 
 Input.propTypes = {
   onChange: PropTypes.func,
-  isValidated: PropTypes.bool,
+  isValid: PropTypes.bool,
   isWarning: PropTypes.bool,
   isBordered: PropTypes.bool,
   props: PropTypes.array,

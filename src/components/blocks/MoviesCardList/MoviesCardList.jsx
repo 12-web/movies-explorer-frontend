@@ -10,11 +10,24 @@ import "./MoviesCardList.css";
  * @param { boolean } props.isSaved - сохранена ли карточка или нет
  */
 
-export const MoviesCardList = ({ data, isSaved = false }) => {
+export const MoviesCardList = ({
+  onAddSavedMovie,
+  onRemoveSavedMovie,
+  data,
+  savedMovieDisplay,
+  savedMovies = [],
+}) => {
   return (
     <ul className="movies__list">
       {data.map((movie, index) => (
-        <MoviesCard isSaved={isSaved} key={index} data={movie} />
+        <MoviesCard
+          savedMovieDisplay={savedMovieDisplay}
+          savedMovies={savedMovies}
+          onAddSavedMovie={onAddSavedMovie}
+          onRemoveSavedMovie={onRemoveSavedMovie}
+          key={index}
+          data={movie}
+        />
       ))}
     </ul>
   );
@@ -24,7 +37,7 @@ MoviesCard.propTypes = {
   data: PropTypes.shape({
     banner: PropTypes.string,
     name: PropTypes.string,
-    duration: PropTypes.string,
+    duration: PropTypes.number,
   }),
   isSaved: PropTypes.bool,
 };

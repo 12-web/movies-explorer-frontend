@@ -17,10 +17,11 @@ import "./InputBlock.css";
 
 export const InputBlock = ({
   id,
-  isValidated = false,
   labelText,
   labelPos = "top",
   baseClass,
+  errorText,
+  isCustomValidated,
   ...props
 }) => {
   return (
@@ -31,8 +32,15 @@ export const InputBlock = ({
       >
         {labelText}
       </label>
-      <Input isValidated={isValidated} id={id} {...props} />
-      {isValidated && <span className={`input__error ${id}-error`}>asds</span>}
+      <Input
+        errorText={errorText}
+        isCustomValidated={isCustomValidated}
+        id={id}
+        {...props}
+      />
+      {isCustomValidated && (
+        <span className={`input__error ${id}-error`}>{errorText}</span>
+      )}
     </div>
   );
 };

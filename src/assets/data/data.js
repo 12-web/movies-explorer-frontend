@@ -170,17 +170,23 @@ export const data = {
       {
         name: "бег это свобода asjdkba kjs bdkjasb",
         duration: "765765",
-        banner: banner,
+        image: {
+          url: "https://asd",
+        },
       },
       {
-        name: "бег это свобода",
+        name: "бег это свобода asjdkba kjs bdkjasb",
         duration: "765765",
-        banner: banner2,
+        image: {
+          url: "https://asd",
+        },
       },
       {
-        name: "бег это свобода",
+        name: "бег это свобода asjdkba kjs bdkjasb",
         duration: "765765",
-        banner: banner,
+        image: {
+          url: "https://asd",
+        },
       },
     ],
   },
